@@ -9,7 +9,6 @@ jobs:
   find_encodings:
     runs-on: windows-latest
     steps:
-      - uses: 
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:

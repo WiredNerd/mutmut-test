@@ -13,6 +13,8 @@ jobs:
         python-version: [3.9]
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      PYTHONIOENCODING: UTF-8
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4

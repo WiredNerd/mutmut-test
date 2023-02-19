@@ -1,5 +1,6 @@
 from os import walk
 from os.path import join
+import traceback
 
 
 for r, d, fs in walk('.'):
@@ -16,5 +17,6 @@ for r, d, fs in walk('.'):
                 for x in file.readlines():
                     line = x
         except UnicodeDecodeError as e:
-            print(f"{full} {e}")
+            traceback.print_exception(e)
+            print(full)
             print(line)

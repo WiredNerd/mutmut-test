@@ -25,5 +25,5 @@ jobs:
       - run: pytest
       - run: mutmut run
       - run: python find_encodings.py
-        if: ${{ true }}
+        if: ${{ always() }}
         

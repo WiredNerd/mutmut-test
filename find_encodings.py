@@ -17,6 +17,6 @@ for r, d, fs in walk('.'):
                 for x in file.readlines():
                     line = x
         except UnicodeDecodeError as e:
-            traceback.print_stack()
+            traceback.print_exc()
             print(full)
             print(line)

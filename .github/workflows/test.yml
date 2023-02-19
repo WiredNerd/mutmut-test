@@ -1,12 +1,9 @@
 name: CI
 on:
   workflow_dispatch:
-  pull_request:
-    branches:
-    - master
   push:
     branches:
-    - master
+    - main
 
 jobs:
   test:
@@ -24,4 +21,4 @@ jobs:
       - name: Setup dependencies
         run: pip install -r requirements_test.txt
       - run: pytest
-      - run: mutmut
+      - run: mutmut run

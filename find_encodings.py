@@ -18,5 +18,13 @@ for r, d, fs in walk('.'):
                     line = x
         except UnicodeDecodeError as e:
             traceback.print_exc()
-            print(full)
-            print(line)
+            print(f"filename: {full}")
+            print("line before failed line: \n" + line)
+
+# with open("./src/hello.py", encoding='ascii') as file:
+#     line = "see first line"
+#     while(line != ""):
+#         try:
+#             line = file.readline().strip('\n')
+#         except UnicodeDecodeError as e:
+#             print("line before failed line: \n" + line)

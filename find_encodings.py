@@ -18,7 +18,7 @@ for r, d, fs in walk('.'):
                     line = x
         except UnicodeDecodeError as e:
             traceback.print_exc()
-            print(f"filename: {full}")
+            print(f"filename: {full} {full.encoding}")
             print("line before failed line: \n" + line)
 
 # with open("./src/hello.py", encoding='ascii') as file:

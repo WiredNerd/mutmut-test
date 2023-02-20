@@ -45,7 +45,7 @@ jobs:
       - name: Setup dependencies
         run: pip install -r requirements_test.txt
       - run: pytest
-      - run: python -m -X utf8 mutmut run
+      - run: python -X utf8 -m mutmut run
       - run: python find_encodings.py
         if: ${{ always() }}
   

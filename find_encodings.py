@@ -1,6 +1,10 @@
 from os import walk
 from os.path import join
 import traceback
+import sys
+
+
+print(sys.getdefaultencoding())
 
 
 for r, d, fs in walk('.'):
@@ -14,12 +18,13 @@ for r, d, fs in walk('.'):
         line = str()
         try:
             with open(full) as file:
+                print(f"filename: {full} \tencoding: {file.encoding}")
                 for x in file.readlines():
-                    line = x
+                    pass
         except UnicodeDecodeError as e:
-            traceback.print_exc()
-            print(f"filename: {full} {full.encoding}")
-            print("line before failed line: \n" + line)
+            print(f"filename: {full} {e}")
+
+traceback.print_exc()
 
 # with open("./src/hello.py", encoding='ascii') as file:
 #     line = "see first line"

@@ -6,20 +6,8 @@ on:
     - main
 
 jobs:
-  find_encodings:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-      - run: python find_encodings.py
-
   find_encodings-utf8:
     runs-on: windows-latest
-    # env:
-    #   PYTHONIOENCODING: "utf-8:backslashreplace"
-    #   PYTHONLEGACYWINDOWSIOENCODING: "utf-8"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -31,12 +19,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.9]
+        python-version: [3.7, 3.8, 3.9, 3.10, 3.11]
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
-    env:
-      PYTHONIOENCODING: "utf-8:backslashreplace"
-      PYTHONLEGACYWINDOWSIOENCODING: "utf-8"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -45,8 +30,8 @@ jobs:
       - name: Setup dependencies
         run: pip install -r requirements_test.txt
       - run: pytest
-      - run: python -X utf8 -m mutmut run
-      - run: python find_encodings.py
-        if: ${{ always() }}
+      - run: python -X utf8 -m mutmut run --CI --no-progress
+      - run: python -X utf8 -m mutmut html
+      - run: python -X utf8 -m mutmut junitxml
   
         

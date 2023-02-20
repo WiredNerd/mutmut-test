@@ -6,16 +6,50 @@ on:
     - main
 
 jobs:
-  find_encodings-utf8:
+  find_encodings:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: 3.9
+      - run: python find_encodings.py
       - run: python -X utf8 find_encodings.py
+        if: ${{ always() }}
 
-  test:
+  mutmut-run-errors:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - run: pip install -r requirements_test.txt
+      - run: mutmut run --CI --no-progress
+
+  mutmut-html-errors:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - run: pip install -r requirements_test.txt
+      - run: python -X utf8 -m mutmut run --CI --no-progress
+      - run: mutmut html
+
+  mutmut-junitxml-errors:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - run: pip install -r requirements_test.txt
+      - run: python -X utf8 -m mutmut run --CI --no-progress
+      - run: mutmut junitxml
+
+  test-different-versions:
     strategy:
       fail-fast: false
       matrix:
@@ -27,9 +61,7 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Setup dependencies
-        run: pip install -r requirements_test.txt
-      - run: pytest
+      - run: pip install -r requirements_test.txt
       - run: python -X utf8 -m mutmut run --CI --no-progress
       - run: python -X utf8 -m mutmut html
       - run: python -X utf8 -m mutmut junitxml

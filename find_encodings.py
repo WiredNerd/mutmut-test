@@ -24,11 +24,3 @@ for r, d, fs in walk('.'):
         except UnicodeDecodeError as e:
             print(f"filename: {full} {e}")
             traceback.print_exc()
-
-# with open("./src/hello.py", encoding='ascii') as file:
-#     line = "see first line"
-#     while(line != ""):
-#         try:
-#             line = file.readline().strip('\n')
-#         except UnicodeDecodeError as e:
-#             print("line before failed line: \n" + line)

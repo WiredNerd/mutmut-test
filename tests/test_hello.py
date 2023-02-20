@@ -1,5 +1,7 @@
 import hello
+import pytest
 
 
-def test_message_english():
-    assert hello.get_message("English") == "Hello World"
+@pytest.mark.parametrize("language, message", [["English", "Hello World"], ["日本語", "ハローワールド"]])
+def test_message(language, message):
+    assert hello.get_message(language) == message
